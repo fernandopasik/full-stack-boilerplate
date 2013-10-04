@@ -31,6 +31,16 @@ module.exports = function (grunt) {
      * Watch files for changes and then do stuff
      */
     watch: {
+      templates: {
+        files: [
+          'app/{,**/}*.{jade,html}',
+          'server/{,**/}*.{jade,html}',
+          'test/{,**/}*.{jade,html}'
+        ],
+        options: {
+          livereload: true
+        }
+      },
       test: {
         files: [
           'test/{,**/}*.js',
@@ -38,6 +48,13 @@ module.exports = function (grunt) {
           'app/{,**/}*.js'
         ],
         tasks: ['shell:mocha'],
+        options: {
+          livereload: true
+        }
+      },
+      compass: {
+        files: ['app/{,**/}*.scss'],
+        tasks: ['compass'],
         options: {
           livereload: true
         }
@@ -92,11 +109,27 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       }
+    },
+
+    compass: {
+      dev: {
+        options: {
+          sassDir: 'app/styles',
+          fontsDir: 'app/styles/fonts',
+          cssDir: '.tmp/styles',
+          imagesDir: 'app/images',
+          javascriptsDir: 'app/scripts',
+          relativeAssets: true,
+          trace: true,
+          outputStyle: 'expanded'
+        }
+      }
     }
 
   });
 
   grunt.registerTask('default', [
+    'compass',
     'jshint',
     'shell:mocha',
     'concurrent'

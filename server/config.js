@@ -4,6 +4,7 @@
 var PORT = 9000;
 
 var express = require('express'),
+    path = require('path'),
     http = require('http');
 
 module.exports = function (app) {
@@ -11,10 +12,16 @@ module.exports = function (app) {
     var server = http.createServer(app),
         logListening = function () {
             console.log('Express App started in port:' + (app.get('port')));
+        },
+        addStatic = function (pth) {
+            return express.static(path.join(__dirname, pth));
         };
 
     app.configure(function () {
         app.set('port', PORT);
+        app.set('view engine', 'jade');
+        app.set('views', __dirname + '/views');
+        app.use(addStatic('../app'));
     });
 
     app.configure('development', function () {
@@ -23,6 +30,8 @@ module.exports = function (app) {
         server.on('listening', logListening);
         // Useful logger for request and response status
         app.use(express.logger('dev'));
+        app.use(addStatic('../.tmp'));
+        app.use(require('connect-livereload')());
 
     });
 
@@ -30,6 +39,7 @@ module.exports = function (app) {
 
         // Override port for testing environment to not be the same
         app.set('port', PORT + 1);
+        app.use(addStatic('../.tmp'));
 
     });
 
