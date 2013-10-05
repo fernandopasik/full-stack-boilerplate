@@ -1,11 +1,12 @@
 /* jshint es3: false */
 'use strict';
 
-var PORT = 9000;
+var PORT = 9000, // Constant for express server port
 
-var express = require('express'),
+    express = require('express'),
     path = require('path'),
-    http = require('http');
+    http = require('http'),
+    mongoose = require('mongoose');
 
 module.exports = function (app) {
 
@@ -26,20 +27,37 @@ module.exports = function (app) {
 
     app.configure('development', function () {
 
+        // Setting the mongodb url for development
+        app.set('mongodb_url', 'mongodb://localhost/boilerplatedev');
+
         // Attend to listening event for connected message
         server.on('listening', logListening);
+
         // Useful logger for request and response status
         app.use(express.logger('dev'));
+
+        // Shared folders by the server
         app.use(addStatic('../.tmp'));
+        app.use('/bower_components', addStatic('../bower_components'));
         app.use(require('connect-livereload')());
 
     });
 
     app.configure('test', function () {
 
+        // Setting the mongodb url for testing
+        app.set('mongodb_url', 'mongodb://localhost/boilerplatetest');
+
+        // Setting the server url for in case is needed
+        // for example in tests
+        app.set('server_url', 'http://localhost');
+
         // Override port for testing environment to not be the same
         app.set('port', PORT + 1);
+
+        // Shared folders by the server
         app.use(addStatic('../.tmp'));
+        app.use('/bower_components', addStatic('../bower_components'));
 
     });
 
@@ -55,11 +73,24 @@ module.exports = function (app) {
 
         // Simple start method for initialize the server
         app.set('start', function (cb) {
-            server.listen(app.get('port') || PORT, function () {
-                if (cb) {
-                    cb();
+
+            // Connect MongoDB
+            mongoose.connect(app.get('mongodb_url'), function (err) {
+                if (err) {
+                    if (typeof cb === 'function') {
+                        cb(err);
+                    }
+                }
+                else {
+                    // If the DB connection is ok start server
+                    server.listen(app.get('port') || PORT, function () {
+                        if (typeof cb === 'function') {
+                            cb();
+                        }
+                    });
                 }
             });
+
         });
 
     });
