@@ -2,3 +2,4 @@
 'use strict';
 
 require('./server');
+require('./server/schemas/example');
