@@ -3,3 +3,4 @@
 
 require('./server');
 require('./server/schemas/example');
+require('./server/routes/example');

@@ -25,7 +25,8 @@
     "jade": "~0.35.0",
     "mocha": "~1.13.0",
     "chai": "~1.8.0",
-    "superagent": "~0.15.4"
+    "superagent": "~0.15.4",
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "connect-livereload": "~0.3.0",
