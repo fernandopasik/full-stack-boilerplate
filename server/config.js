@@ -76,6 +76,9 @@ module.exports = function (app) {
         app.use(express.methodOverride());
         app.use(app.router);
 
+        // 404 and 500 error handling
+        require('./error')(app);
+
         // Simple start method for initialize the server
         app.set('start', function (cb) {
 
