@@ -19,9 +19,11 @@ module.exports = function (app) {
         };
 
     app.configure(function () {
+        app.set('title', 'Full Stack Application');
         app.set('port', PORT);
         app.set('view engine', 'jade');
         app.set('views', __dirname + '/views');
+        app.use(express.favicon());
         app.use(addStatic('../app'));
     });
 
@@ -51,6 +53,9 @@ module.exports = function (app) {
         // Setting the server url for in case is needed
         // for example in tests
         app.set('server_url', 'http://localhost');
+
+        // Useful logger for request and response status
+        app.use(express.logger('dev'));
 
         // Override port for testing environment to not be the same
         app.set('port', PORT + 1);
