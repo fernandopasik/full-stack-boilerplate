@@ -1,7 +1,7 @@
 /* jshint expr: true, es3: false */
 'use strict';
 
-var app = require('../server/server'),
+var app = require(process.cwd() + '/server/server'),
     expect = require('chai').expect,
     request = require('superagent'),
     baseurl = app.get('server_url') + ':' + app.get('port') + '/',
