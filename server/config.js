@@ -63,6 +63,8 @@ module.exports = function (app) {
         // Shared folders by the server
         app.use(addStatic('../.tmp'));
         app.use('/bower_components', addStatic('../bower_components'));
+        app.use('/node_modules', addStatic('../node_modules'));
+        app.use('/test', addStatic('../test/client'));
 
     });
 

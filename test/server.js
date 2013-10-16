@@ -7,13 +7,11 @@ var app = require(process.cwd() + '/server/server'),
     baseurl = app.get('server_url') + ':' + app.get('port') + '/',
     mongoose = require('mongoose');
 
+after(function () {
+    // Cleanup test database
+});
+
 describe('Server Application Test', function () {
-
-    it('Server listens', function (done) {
-
-        app.get('start')(done);
-
-    });
 
     it('Access to root route', function (done) {
 
@@ -53,19 +51,15 @@ describe('Server Application Test', function () {
     it('MongoDB is online and operational', function (done) {
 
         var db = mongoose.connection.db;
-        // Dropping test database just in case, before testing
-        db.dropDatabase(function (err) {
+
+        // Testing a collection and adding an element
+        db.collection('test_collection', function (err, collection) {
             expect(err).to.not.exist;
-
-            // Testing a collection and adding an element
-            db.collection('test_collection', function (err, collection) {
+            collection.insert({hello: 'world'}, function (err) {
                 expect(err).to.not.exist;
-                collection.insert({hello: 'world'}, function (err) {
-                    expect(err).to.not.exist;
 
-                    // Good to Go
-                    done();
-                });
+                // Good to Go
+                done();
             });
         });
 

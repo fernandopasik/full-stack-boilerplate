@@ -1,0 +1,20 @@
+{
+  "name": "full-stack-boilerplate",
+  "version": "0.0.1",
+  "description": "For starting full-stack web apps",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.6.2",
+    "jquery": "~1.10.2",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0",
+    "backbone.marionette": "~1.1.0",
+    "backbone.wreqr": "~0.2.0"
+  },
+  "devDependencies": {
+    "requirejs": "~2.1.8",
+    "requirejs-text": "~2.0.10",
+    "sass-bootstrap": "~3.0.0"
+  },
+  "directory": "bower_components"
+}
