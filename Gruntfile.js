@@ -1,4 +1,4 @@
-/* jshint maxlen: 120, indent: 2 */
+/* jshint maxlen: 150, indent: 2, camelcase: false */
 'use strict';
 
 module.exports = function (grunt) {
@@ -11,18 +11,25 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     /**
-     * Nodemon for reloading the server files on every change
+     * Express Server
      */
-    nodemon: {
+    express: {
+      options: {
+        script: 'server/init.js'
+      },
       dev: {
         options: {
-          file: 'server/init.js',
-          watchedExtensions: ['js'],
-          watchedFolders: ['server'],
-          env: {
-            NODE_ENV: 'development',
-            PORT: 9000
-          }
+          node_env: 'development'
+        }
+      },
+      test: {
+        options: {
+          node_env: 'test'
+        }
+      },
+      prod: {
+        options: {
+          node_env: 'production'
         }
       }
     },
@@ -31,23 +38,32 @@ module.exports = function (grunt) {
      * Watch files for changes and then do stuff
      */
     watch: {
-      templates: {
+      dev: {
         files: [
-          'app/{,**/}*.{jade,html}',
-          'server/{,**/}*.{jade,html}',
-          'test/{,**/}*.{jade,html}'
-        ],
-        options: {
-          livereload: true
-        }
-      },
-      test: {
-        files: [
-          'test/{,**/}*.js',
           'server/{,**/}*.js',
           'app/{,**/}*.js'
         ],
-        tasks: ['shell:mocha'],
+        options: {
+          nospawn: true,
+          livereload: true
+        },
+        tasks: [
+          'shell:mocha',
+          'express:dev'
+        ]
+      },
+      test: {
+        files: [
+          'test/{,**/}*.js'
+        ],
+        tasks: [
+          'shell:mocha'
+        ]
+      },
+      templates: {
+        files: [
+          'server/{,**/}*.{jade,html}'
+        ],
         options: {
           livereload: true
         }
@@ -79,7 +95,7 @@ module.exports = function (grunt) {
      */
     open: {
       dev: {
-        path: 'http://localhost:<%= nodemon.dev.options.env.PORT %>'
+        path: 'http://localhost:9000'
       }
     },
 
@@ -97,18 +113,6 @@ module.exports = function (grunt) {
         'app/{,**/}*.js',
         'test/{,**/}*.js'
       ]
-    },
-
-    /**
-     * Concurrent tasks for process that need keepalive
-     */
-    concurrent: {
-      target: {
-        tasks: ['nodemon', 'watch', 'open:dev'],
-        options: {
-          logConcurrentOutput: true
-        }
-      }
     },
 
     compass: {
@@ -132,7 +136,9 @@ module.exports = function (grunt) {
     'compass',
     'jshint',
     'shell:mocha',
-    'concurrent'
+    'express:dev',
+    'open',
+    'watch'
   ]);
 
 };
