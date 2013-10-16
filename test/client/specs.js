@@ -4,7 +4,8 @@ define(function () {
     /* Tests to be run */
     return {
         specs: [
-            'test/models/example.js'
+            'test/models/example.js',
+            'test/collections/example.js'
         ]
     };
 });
