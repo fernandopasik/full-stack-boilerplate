@@ -12,11 +12,15 @@ module.exports = function (app) {
         });
     });
 
+    function notify() {
+        app.io.sockets.emit('refreshExample', {});
+    }
+
     // Routes for Example API
-    app.post('/api/example', example.create);
+    app.post('/api/example', example.create, notify);
     app.get('/api/example', example.browse);
     app.get('/api/example/:id', example.read);
-    app.put('/api/example/:id', example.update);
-    app.del('/api/example/:id', example.delete);
+    app.put('/api/example/:id', example.update, notify);
+    app.del('/api/example/:id', example.delete, notify);
 
 };

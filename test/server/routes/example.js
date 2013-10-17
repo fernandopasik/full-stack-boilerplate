@@ -4,8 +4,9 @@
 var app = require(process.cwd() + '/server/server'),
     expect = require('chai').expect,
     request = require('superagent'),
-    baseurl = app.get('server_url') + ':' + app.get('port'),
-    _ = require('underscore');
+    baseurl = app.get('server_url') + ':' + app.get('port') + '/',
+    _ = require('underscore'),
+    io = require('socket.io-client');
 
 describe('CRUD for Example API', function () {
 
@@ -20,7 +21,7 @@ describe('CRUD for Example API', function () {
 
         var self = this;
         request
-            .post(baseurl + '/api/example')
+            .post(baseurl + 'api/example')
             .set('Content-Type', 'application/json')
             .send(this.example)
             .end(function (res) {
@@ -50,7 +51,7 @@ describe('CRUD for Example API', function () {
 
         var self = this;
         request
-            .get(baseurl + '/api/example/' + this.idInserted)
+            .get(baseurl + 'api/example/' + this.idInserted)
             .set('Content-Type', 'application/json')
             .send({})
             .end(function (res) {
@@ -76,7 +77,7 @@ describe('CRUD for Example API', function () {
 
         var self = this;
         request
-            .get(baseurl + '/api/example')
+            .get(baseurl + 'api/example')
             .set('Content-Type', 'application/json')
             .send({})
             .end(function (res) {
@@ -108,7 +109,7 @@ describe('CRUD for Example API', function () {
             name: 'this is an example too'
         };
         request
-            .put(baseurl + '/api/example/' + this.idInserted)
+            .put(baseurl + 'api/example/' + this.idInserted)
             .set('Content-Type', 'application/json')
             .send(this.example)
             .end(function (res) {
@@ -134,7 +135,7 @@ describe('CRUD for Example API', function () {
 
         var self = this;
         request
-            .del(baseurl + '/api/example/' + this.idInserted)
+            .del(baseurl + 'api/example/' + this.idInserted)
             .set('Content-Type', 'application/json')
             .send({})
             .end(function (res) {
@@ -153,6 +154,71 @@ describe('CRUD for Example API', function () {
 
                 done();
             });
+
+    });
+
+});
+
+describe('WebSocket emit for Example API', function () {
+
+    before(function (done) {
+
+        var self = this;
+        this.socket = io.connect(baseurl, {'force new connection': true});
+        this.socket.on('connect', function () {
+            done();
+        });
+        this.socket.on('error', function () {
+            done(new Error('Error on socket connection'));
+        });
+        this.socket.on('refreshExample', function () {
+            self.callback();
+        });
+
+    });
+
+    after(function (done) {
+
+        this.serverSocket.on('disconnect', function () {
+            done();
+        });
+        this.socket.disconnect();
+
+    });
+
+    it('on Create', function (done) {
+
+        var self = this;
+        this.callback = done;
+        request
+            .post(baseurl + 'api/example')
+            .set('Content-Type', 'application/json')
+            .send({name: 'this is an example'})
+            .end(function (res) {
+                self.idInserted = res.body._id;
+            });
+
+    });
+
+    it('on Update', function (done) {
+
+        this.callback = done;
+        request
+            .put(baseurl + 'api/example/' + this.idInserted)
+            .set('Content-Type', 'application/json')
+            .send({name: 'this is an example too'})
+            .end();
+
+    });
+
+    it('on Delete', function (done) {
+
+        this.callback = done;
+        request
+            .del(baseurl + 'api/example/' + this.idInserted)
+            .set('Content-Type', 'application/json')
+            .send({})
+            .end();
 
     });
 
