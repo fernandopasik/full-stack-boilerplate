@@ -27,14 +27,14 @@ require.config({
     },
 
     paths: {
-        mocha: '/node_modules/mocha/mocha',
-        chai: '/node_modules/chai/chai',
+        mocha: '/bower_components/mocha/mocha',
+        chai: '/bower_components/chai/chai',
         jquery:     '/bower_components/jquery/jquery',
         backbone:   '/bower_components/backbone/backbone',
         underscore: '/bower_components/underscore/underscore',
         'backbone.marionette': '/bower_components/backbone.marionette/lib/backbone.marionette',
         'backbone.wreqr': '/bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
-        text: '/bower_components/requirejs-text/text'
+        tpl: '/bower_components/requirejs-tpl/tpl'
     }
 });
 

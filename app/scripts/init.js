@@ -28,6 +28,6 @@ require.config({
         'backbone.marionette': '/bower_components/backbone.marionette/lib/backbone.marionette',
         'backbone.wreqr': '/bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
         bootstrap: '/bower_components/sass-bootstrap/dist/js/bootstrap',
-        text: '/bower_components/requirejs-text/text'
+        tpl: '/bower_components/requirejs-tpl/tpl'
     }
 });
