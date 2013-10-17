@@ -6,7 +6,8 @@ var PORT = 9000, // Constant for express server port
     express = require('express'),
     path = require('path'),
     http = require('http'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    io = require('socket.io');
 
 module.exports = function (app) {
 
@@ -94,6 +95,14 @@ module.exports = function (app) {
                 else {
                     // If the DB connection is ok start server
                     server.listen(app.get('port') || PORT, function () {
+                        // Start server websocket
+                        app.io = io.listen(server);
+                        // Log level:
+                        // 0 - error
+                        // 1 - warn
+                        // 2 - info
+                        // 3 - debug
+                        app.io.set('log level', 1);
                         if (typeof cb === 'function') {
                             cb();
                         }

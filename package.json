@@ -26,7 +26,8 @@
     "mocha": "~1.13.0",
     "chai": "~1.8.0",
     "superagent": "~0.15.4",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "connect-livereload": "~0.3.0",
@@ -39,7 +40,8 @@
     "grunt-shell": "~0.4.0",
     "matchdep": "~0.1.2",
     "mocha-phantomjs": "~3.1.5",
-    "phantomjs": "~1.9.2-2"
+    "phantomjs": "~1.9.2-2",
+    "socket.io-client": "~0.9.16"
   },
   "engines": {
     "node": ">=0.8.0",
