@@ -34,6 +34,7 @@ require.config({
         underscore: '/bower_components/underscore/underscore',
         'backbone.marionette': '/bower_components/backbone.marionette/lib/backbone.marionette',
         'backbone.wreqr': '/bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
+        'socket.io': '/bower_components/socket.io-client/dist/socket.io',
         tpl: '/bower_components/requirejs-tpl/tpl'
     }
 });
