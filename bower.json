@@ -8,14 +8,14 @@
     "jquery": "~1.10.2",
     "underscore": "~1.5.2",
     "backbone": "~1.1.0",
-    "backbone.marionette": "~1.1.0",
+    "backbone.marionette": "~1.2.0",
     "backbone.wreqr": "~0.2.0",
     "socket.io-client": "~0.9.16"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
     "chai": "~1.8.1",
-    "requirejs": "~2.1.8",
+    "requirejs": "~2.1.9",
     "requirejs-tpl": "*",
     "sass-bootstrap": "~3.0.0"
   },
