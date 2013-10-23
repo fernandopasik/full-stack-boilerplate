@@ -1,0 +1,2 @@
+<%= name %>
+<button>x</button>
