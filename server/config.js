@@ -91,7 +91,7 @@ module.exports = function (app) {
                 if (err) {
                     if (typeof cb === 'function') {
                         cb(err);
-                    } else {
+                    } else {
                         throw err;
                     }
                 }
