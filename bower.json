@@ -4,20 +4,20 @@
   "description": "For starting full-stack web apps",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.6.2",
-    "jquery": "~1.10.2",
-    "underscore": "~1.5.2",
-    "backbone": "~1.1.0",
-    "backbone.marionette": "~1.2.0",
-    "backbone.wreqr": "~0.2.0",
-    "socket.io-client": "~0.9.16"
+    "modernizr": "*",
+    "jquery": "*",
+    "underscore": "*",
+    "backbone": "*",
+    "backbone.marionette": "*",
+    "backbone.wreqr": "*",
+    "socket.io-client": "*"
   },
   "devDependencies": {
-    "mocha": "~1.13.0",
-    "chai": "~1.8.1",
-    "requirejs": "~2.1.9",
+    "mocha": "*",
+    "chai": "*",
+    "requirejs": "*",
     "requirejs-tpl": "*",
-    "sass-bootstrap": "~3.0.0"
+    "sass-bootstrap": "*"
   },
   "directory": "bower_components"
 }

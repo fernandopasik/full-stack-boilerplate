@@ -20,28 +20,28 @@
     "mongodb"
   ],
   "dependencies": {
-    "express": "~3.4.2",
-    "mongoose": "~3.6.20",
-    "jade": "~0.35.0",
-    "mocha": "~1.13.0",
-    "chai": "~1.8.0",
-    "superagent": "~0.15.7",
-    "underscore": "~1.5.2",
-    "socket.io": "~0.9.16"
+    "express": "*",
+    "mongoose": "*",
+    "jade": "*",
+    "mocha": "*",
+    "chai": "*",
+    "superagent": "*",
+    "underscore": "*",
+    "socket.io": "*"
   },
   "devDependencies": {
-    "connect-livereload": "~0.3.0",
-    "grunt": "~0.4.1",
-    "grunt-contrib-compass": "~0.5.0",
-    "grunt-express-server": "~0.4.4",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-open": "~0.2.2",
-    "grunt-shell": "~0.4.0",
-    "matchdep": "~0.1.2",
-    "mocha-phantomjs": "~3.1.5",
-    "phantomjs": "~1.9.2-2",
-    "socket.io-client": "~0.9.16"
+    "connect-livereload": "*",
+    "grunt": "*",
+    "grunt-contrib-compass": "*",
+    "grunt-express-server": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-open": "*",
+    "grunt-shell": "*",
+    "matchdep": "*",
+    "mocha-phantomjs": "*",
+    "phantomjs": "*",
+    "socket.io-client": "*"
   },
   "engines": {
     "node": ">=0.8.0",
