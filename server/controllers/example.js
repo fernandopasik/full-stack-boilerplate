@@ -13,7 +13,7 @@ module.exports = {
     },
 
     create: function (req, res, next) {
-        ExampleModel.create(req.body, function (err, doc) {
+        ExampleModel.create(req.body, function (err, doc) {
             helpers.handleResponse(res, err, doc, next);
         });
     },
