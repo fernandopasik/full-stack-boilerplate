@@ -88,8 +88,10 @@ module.exports = function (app) {
             // Connect MongoDB
             mongoose.connect(app.get('mongodb_url'), function (err) {
                 if (err) {
-                    if (typeof cb === 'function') {
+                    if (typeof cb === 'function') {
                         cb(err);
+                    } else {
+                        throw err;
                     }
                 }
                 else {
@@ -103,7 +105,7 @@ module.exports = function (app) {
                         // 2 - info
                         // 3 - debug
                         app.io.set('log level', 1);
-                        if (typeof cb === 'function') {
+                        if (typeof cb === 'function') {
                             cb();
                         }
                     });
