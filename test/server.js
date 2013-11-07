@@ -66,43 +66,47 @@ describe('Server Application Test', function () {
 
     });
 
-    before(function () {
+    describe('Websockets', function () {
 
-        var self = this;
-        // Save server socket object for later tests
-        app.io.sockets.on('connection', function (socket) {
-            self.serverSocket = socket;
+        before(function () {
+
+            var self = this;
+            // Save server socket object for later tests
+            app.io.sockets.on('connection', function (socket) {
+                self.serverSocket = socket;
+            });
+
         });
 
-    });
+        it('Websocket conneting', function (done) {
 
-    it('Websocket conneting', function (done) {
+            this.socket = io.connect(baseurl);
+            this.socket.on('connect', function () {
+                done();
+            });
+            this.socket.on('error', function () {
+                done(new Error('Error on socket connection'));
+            });
 
-        this.socket = io.connect(baseurl);
-        this.socket.on('connect', function () {
-            done();
         });
-        this.socket.on('error', function () {
-            done(new Error('Error on socket connection'));
+
+        it('Websocket receive', function (done) {
+
+            this.serverSocket.on('testing', function () {
+                done();
+            });
+            this.socket.emit('testing', {});
+
         });
 
-    });
+        it('Websocket disconnect', function (done) {
 
-    it('Websocket receive', function (done) {
+            this.serverSocket.on('disconnect', function () {
+                done();
+            });
+            this.socket.disconnect();
 
-        this.serverSocket.on('testing', function () {
-            done();
         });
-        this.socket.emit('testing', {});
-
-    });
-
-    it('Websocket disconnect', function (done) {
-
-        this.serverSocket.on('disconnect', function () {
-            done();
-        });
-        this.socket.disconnect();
 
     });
 

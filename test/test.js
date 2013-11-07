@@ -11,8 +11,9 @@ before(function (done) {
 
     this.timeout(0);
     // Server app start
-    app.get('start')(function () {
+    app.get('start')(function (err) {
 
+        expect(err).to.not.exist;
         db = mongoose.connection.db;
         // Dropping test database just in case, before testing
         db.dropDatabase(function (err) {
